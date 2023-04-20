@@ -47,6 +47,30 @@ while True:
     else:
         print('Ops! A letra "' + jogada + '" não está na palavra.')
         max_tentativas -= 1
+        if max_tentativas == 5: 
+            print("        <._.>")
+        if max_tentativas == 4: 
+            print("        <._.>")
+            print("          |")
+            print("          |")
+        if max_tentativas == 3: 
+            print("        <._.>")
+            print("          |--")
+            print("          |")
+        if max_tentativas == 2: 
+            print("         <._.>")
+            print("         --|--")
+            print("           |") 
+        if max_tentativas == 1: 
+            print("        <._.>")
+            print("        --|--")
+            print("          |")
+            print("           \ ") 
+        if max_tentativas == 0: 
+            print("         <._.>")
+            print("         --|--")
+            print("           |  ")
+            print("          / \ ") 
 
     # Verifica se o jogador perdeu o jogo
     if max_tentativas == 0:
