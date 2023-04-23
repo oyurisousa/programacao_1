@@ -9,7 +9,7 @@ palavras = {'python': 'linguagem de programação', 'programacao': 'área da inf
 palavra_secreta = random.choice(list(palavras.keys()))
 
 # Cria uma lista para armazenar as letras já usadas
-letras_usadas = []
+letras_usadas = [] 
 
 # Define o número máximo de tentativas
 max_tentativas = 6
