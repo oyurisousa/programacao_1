@@ -86,7 +86,7 @@ elif limit_maria > limit_joao:
     else:
         print(limit_joao + 1)
 else:
-    print(limit_maria)
+    print(23- limit_maria)
 
 
 """print(limit_joao)
