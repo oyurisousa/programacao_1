@@ -1,8 +1,14 @@
-[N,M,Q] = input("NMQ: ").split()
 posi = []
 matriz = []
-for x in range(int(Q)):
-    posi.append(input(f"p{x}: ").split())
+
+with open('dados.txt', "r") as file:
+    for line in file:
+        if len(line.split()) !=2:
+            [N,M,Q] = line.split()
+            
+        else:
+            posi.append(line.split())
+
 
 for i in range(int(N)):
     matriz.append([])
