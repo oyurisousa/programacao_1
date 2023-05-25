@@ -1,0 +1,5 @@
+BRA,Brasil, 200000000, 1000000,[a,b,c,d,s,ew]
+IND,India,1000000000,223452346.0, ['bangladesh', 'paquistao', 'nepal']
+CHI,China,90000000,3453246.0, ['russia', 'cazaquistao', 'mongolia']
+ARG,Argentina,45000000,346.0, ['brasil', 'paraguai', 'chile', 'bolivia']
+ESP,Espanha,1209000,45376745.0, ['portugal', 'arabia']
