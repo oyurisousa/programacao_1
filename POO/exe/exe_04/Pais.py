@@ -1,5 +1,3 @@
-
-
 class Pais:
     paises = {}
     def __init__(self,codigoISO, nome,populacao,dimensao,paisesFronteira=[]):
@@ -68,11 +66,28 @@ class Pais:
         else:
             print('paises não cadastrados!')
 
+    def densidadePopulacional(self):
+        return f"{self.nome}:{self.populacao/self.dimensao:.2f} hab/km2"
 
+    def paisesVizinhosComuns(p1,p2):
+        comuns = []
+        p1 = Pais.paises[p1].paisesFronteira
+        p2 = Pais.paises[p2].paisesFronteira
+        for p in p1:
+            if p in p2:
+               comuns.append(p)  
+        
+        return comuns
 
+    def retornaPaises():
+        print("Paises cadastrados:")
+        print('--------------------')
+        for x in Pais.paises:
+            print(x)
 def cadastrar():
+    print("================ CADASTRO ================")
     dados = {
-        'codigoISO': input('código ISO: ').upper(),
+        'codigoISO': input('Código ISO: ').upper(),
         'nome': input('nome: ').capitalize(),
         'populacao': int(input('populacao: ')),
         'dimensao': float(input('Dimensão: ')),
@@ -84,7 +99,7 @@ def cadastrar():
             front = x
         else:
             front += f",{x}"
-
+    
     inst = Pais(dados['codigoISO'], dados['nome'], int(dados['populacao']), float(dados['dimensao']), list(dados['front']))
     Pais.paises[dados['nome']] = inst  # Adiciona o país ao dicionário paises
     with open('paises.txt', 'a') as file:
@@ -95,34 +110,45 @@ def cadastrar():
 def menu():
     # Restante do código...
     print("""
-        =============== MENU ===============
-        1.cadastrar país 2. comparar código ISO
-        3.verificar países limítrofes 4.verificar densidade populacional
-        5.verificar paises vizinhos comuns
-        0. sair 
-        ------------------------------------
+    =============== MENU ===============
+    1.cadastrar país 2. comparar código ISO
+    3.verificar países limítrofes 
+    4.verificar densidade populacional
+    5.verificar paises vizinhos comuns
+    0. sair 
+    ------------------------------------
         """)
     acao = input("")
     if acao == "0":
+        print('Você saiu!')
         return
     elif acao == "1":
         cadastrar()
     elif acao == "2":
         Pais.compararCodigoIso()
     elif acao == '3':
+        Pais.retornaPaises()
+        p1 = input("nome país 1: ").capitalize()
+        p2 = input("nome país 2: ").capitalize()
+        return Pais.paisLimitrofe(p1, p2)
+    elif acao == '4':
         print("Paises cadastrados:")
         print('--------------------')
         for x in Pais.paises:
             print(x)
-        p1 = input("nome país 1: ").capitalize()
-        p2 = input("nome país 2: ").capitalize()
-        return Pais.paisLimitrofe(p1, p2)
-    # Restante do código...
+        p1 = input("nome do país: ").capitalize()
+        print(Pais.paises[p1].densidadePopulacional())
+    elif acao == '5':
+        Pais.retornaPaises()
+        p1 = input("nome do país: ").capitalize()
+        p2 = input("nome do país: ").capitalize()
+        print(Pais.paisesVizinhosComuns(p1, p2))
+
 
 if __name__ == "__main__":
     with open("paises.txt", 'r') as file:
         for obj in file:
             x = obj.split(',',maxsplit=4)
             Pais.paises[x[1]] = Pais(x[0], x[1], int(x[2]), float(x[3]), x[4].replace('[', '').replace(']', '').strip().split(','))
-        print(Pais.paises)
+        
     menu()
