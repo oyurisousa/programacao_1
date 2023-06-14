@@ -84,6 +84,7 @@ class Pais:
         print('--------------------')
         for x in Pais.paises:
             print(x)
+
 def cadastrar():
     print("================ CADASTRO ================")
     dados = {
@@ -99,7 +100,7 @@ def cadastrar():
             front = x
         else:
             front += f",{x}"
-    
+
     inst = Pais(dados['codigoISO'], dados['nome'], int(dados['populacao']), float(dados['dimensao']), list(dados['front']))
     Pais.paises[dados['nome']] = inst  # Adiciona o país ao dicionário paises
     with open('paises.txt', 'a') as file:
