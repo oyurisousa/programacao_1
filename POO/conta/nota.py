@@ -5,7 +5,27 @@ class Nota:
 
     def __init__(self):
         self.codigo = self.gerarCodigoNota()
-        self.produtos = self.listar_produtos()
+        self._produtos = self.listar_produtos()
+
+        
+    @property
+    def codigo(self):
+        return self._codigo
+    
+    @codigo.setter
+    def codigo(self,new):
+        self._codigo = new
+
+    @property
+    def produtos(self):
+        return self._codigo
+    
+    @produtos.setter
+    def codigo(self,new):
+        self._produtos = new
+
+
+
 
     @staticmethod
     def gerarCodigoNota():
@@ -18,17 +38,19 @@ class Nota:
             for x in file:
                 produtos.append(x.strip().split())
             
-        return produtos            
+        return produtos   
 
+    def inserir_produto(self):
+        data = {
+            'desc' : input("descrição: "),
+            'codigo' : int(input("codigo: ")),
+            'preco' : float(input("preco: "))
+        }
+        
+        #Produto(data['desc'], data['codigo'], data['preco'])
 
-    @property
-    def codigo(self):
-        return self._codigo
-    
-    @codigo.setter
-    def codigo(self,new):
-        self._codigo = new
+        with open('produtos.txt','a') as file:
+            file.write(f"{data['desc']} {data['codigo']} {data['preco']}\n")
 
 
 n1 = Nota()
-print(n1.__dict__)
