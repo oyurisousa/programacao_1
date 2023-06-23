@@ -51,16 +51,17 @@ class Conta:
         return a
     
     def depositar(self,valor,ti = 'de'):
-        self.saldo += valor
-        if ti == 'de':
-            self.historico = Historico(self.numero,ti,valor)
+        if valor > 0: 
+            self.saldo += valor
+            if ti == 'de':
+                self.historico = Historico(self.numero,ti,valor)
+            else:
+                self.historico = Historico(self.numero,ti,valor)
         else:
-            self.historico = Historico(self.numero,ti,valor)
-        print(f"depósito no valor de {valor} realizado com sucesso!")
-
+            print("Digite valores maiores que 0!")
 
     def sacar(self,valor,ti = 'sa'):
-        if valor <= self.saldo:
+        if valor <= self.saldo and valor > 0:
             self.saldo -= valor
             if ti == 'sa':
                 self.historico = Historico(self.numero,ti,valor*-1)
@@ -69,7 +70,7 @@ class Conta:
             print(f"saque de {valor} realizado com sucesso!")
             return True
         else:
-            print("saldo insuficiente! ")
+            print("saldo insuficiente ou dados inválidos! ")
             return False
     
     def transferir(self,conta_destino, valor):

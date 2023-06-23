@@ -4,19 +4,22 @@ import os
 
 def menu_principal():
     print("""
-    ========== MENU PRINCIPAL ==========
+    ############## MENU PRINCIPAL ##############
 
     1.criar conta
     2.entrar
+    3.ver contas
     0.sair 
     """)
 
     acao = input('O que você deseja fazer ?')
-
+    limpa()
     if acao == '0':
         print("você saiu!")
         return
     elif acao == '1':
+        
+        print("=============== CRIANDO CONTA ===============")
         try:
             nome = input("Nome: ")
             saldoI = float(input("Saldo Inicial: "))
@@ -37,16 +40,20 @@ def menu_principal():
         else:
             limpa()
             login(num)
+    elif acao == '3':
+        for x in Conta.contas:
+            print(x.__dict__)
+        return menu_principal()
     else:
         print('opção invalida')
-        return
+        return menu_principal()
 
 def criar_conta(nome, saldoI = 0):
-    print("=============== CRIANDO CONTA ===============")
+    
     x = Conta(nome,saldoI)
     Conta.contas.append(x)
     limpa()
-    print(f"Parabéns {x.titular}, sua conta foi criada com suceso!")
+    print(f"Parabéns {x.titular}, sua conta foi criada com sucesso!")
     print(f"O número da sua conta é {x.numero}")
     return menu_conta(x)
 
@@ -62,9 +69,13 @@ def login(conta):
         print("Valores inválidos!")
         print("por favor digite apenas numeros.")
         return menu_principal()
+
 def menu_conta(x):
-    print("""
-    ========= MENU CONTA =========
+    print(f"""
+    =============== MENU CONTA ===============
+    titular: {x.titular}  cont
+    a: {x.numero}
+    ------------------------------------------
     1.ver saldo
     2.depositar
     3.sacar
@@ -74,7 +85,7 @@ def menu_conta(x):
     
     """)
     acao = input("O que você deseja fazer -> ")
-
+    limpa()
     if acao == '0':
         print("Você foi deslogado!")
         return menu_principal()
@@ -115,18 +126,18 @@ def menu_conta(x):
             x.transferir(contaD,valor)
             return menu_conta(x)
     elif acao == '5':
+        print(f"============== EXTRATO ==============")
         x.extrato()
+        return menu_conta(x)
     else:
         limpa()
-        print("opção invalida")
+        print("Opção invalida!")
         return menu_conta(x)
 
 def limpa():
-    os.system('clear')
-
-
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
 if __name__ == "__main__":
     menu_principal()
 
-    for x in Conta.contas:
-        print(x.__dict__)
+   
