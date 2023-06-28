@@ -1,21 +1,13 @@
 from random import randint
 from historico import Historico
-
-class Conta:
-    contas = []
-    def __init__(self,titular,saldo=0):
-        self.__titular = titular
+from agencia import Agencia
+from pessoa import Pessoa
+class Conta(Pessoa):
+    def __init__(self,nome,cpf,cidade,endereco,uf,num_agencia,saldo=0):
+        super().__init__(nome,cpf,cidade,endereco,uf)
         self.__numero = self.gerar_numero()
         self.__saldo = saldo
         self.__historico = []
-
-    @property
-    def titular(self):
-        return self.__titular
-
-    @titular.setter
-    def titular(self,new):
-        self.__titular = new
     
     @property
     def numero(self):
@@ -45,7 +37,7 @@ class Conta:
     @staticmethod
     def gerar_numero():
         a = randint(1000,10000)
-        for x in Conta.contas:
+        for x in Agencia.contas:
             if x.numero == a:
                 return Conta.gerar_numero()
         return a
@@ -93,7 +85,7 @@ class Conta:
     
     @classmethod
     def existe_conta(self,num):
-        for conta in self.contas:
+        for conta in Agencia.contas:
             if conta.numero == num:
                 return conta
         return False
